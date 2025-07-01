@@ -1,0 +1,89 @@
+Установка среды разработки для c, c++, python:
+!!Если snap не установлен, первым делом установить его: sudo apt update sudo apt install snapd
+
+VS Code:
+1. sudo snap install code --classic
+2. sudo apt update 
+sudo apt install build-essential gdb
+build-essential — метапакет, включающий gcc, g++, make и другие инструменты для сборки.
+gdb — отладчик для C/C++
+3. gcc --version - проверка установки
+при открытии VS Code установить расширения C/C++, Python - подсветка синтаксиса, автодополнение, отладка.
+
+PyCharm:
+sudo snap install pycharm-community --classic  
+
+
+Установка среды разработки для Java:
+Java требует JDK для компиляции и запуска программ:
+1. sudo apt install openjdk-17-jdk - установка последней LTS-версии OpenJDK
+2. java -version - проверка установки
+
+Установка IDE (IntelliJ IDEA):
+sudo snap install intellij-idea-community --classic  
+
+Настройка окружения (опционально):
+1. echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64' >> ~/.bashrc
+2. echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+3. source ~/.bashrc
+
+
+Установка Android Studio:
+sudo snap install android-studio --classic
+
+
+Интегрированная среда разработки + игровой движок:
+Unity Hub + Unity Editor с поддержкой OpenXR и XR Plugin Management
+Unity — простая в установке, с C# и лучшей поддержкой XR через OpenXR.
+
+Установка зависимостей:
+sudo apt update
+sudo apt install libfuse2 curl
+
+Загрузка Unity Hub:
+cd ~/Загрузки
+curl -LO https://public-cdn.cloud.unity3d.com/hub/prod/UnityHub.AppImage
+
+Дать права и запустить:
+chmod +x UnityHub.AppImage
+./UnityHub.AppImage
+
+В Unity Hub установи нужную версию Unity Editor (2022 LTS) с галочкой на “Android Build Support”, “Linux Build Support”, “XR Plugin Management”, “OpenXR”.
+
+SDK для работы с VR-шлемами:
+OpenXR SDK — единый стандарт от Khronos, поддерживает все устройства: Oculus, HTC, HoloLens.
+
+Установка: sudo apt install libopenxr-dev
+
+Инструмент для 3D-моделирования и оптимизации ассетов:
+blender - позволяет редактировать, оптимизировать модели, текстуры, экспортировать в формат .fbx, .glb и т.д. для Unity.
+
+Установка:
+sudo apt install blender
+
+Программа для записи и анализа пользовательского опыта в VR/AR:
+UXTools + Recorder для Unity:
+ • В Unity → Window → Package Manager → установить пакет Unity Recorder (запись видео, логов).
+ • Для анализа взаимодействий — UX Tools от Microsoft (если HoloLens) или Open Source аналоги:
+ • XRTK (https://xrtk.io/)
+ • OpenXR Toolkit (https://mbucchia.github.io/OpenXR-Toolkit/)
+
+Безопасная передача данных и защита от перехвата:
+файрвол и журналирование:
+Брандмауэр:
+sudo apt install ufw - устанавливает UFW — это простая программа-файрвол, которая помогает защитить компьютер от нежеланных подключений
+sudo ufw enable - включает этот файрвол (начинает защищать систему)
+sudo ufw allow ssh - разрешает подключение по SSH (удалённый доступ к компьютеру)
+sudo ufw allow 11311/tcp  - разрешает доступ к порту 11311 по протоколу TCP — используется, например, для работы с ROS (Robot Operating System) или стриминга данных в VR/AR
+
+Средство мониторинга сети (если нужно):
+sudo apt install wireshark
+
+Первичная настройка Unity для VR/AR
+ 1. Создай новый 3D-проект в Unity.
+ 2. Включи:
+Edit → Project Settings → XR Plugin Management
+Установи: OpenXR
+ 3. В OpenXR:
+ • Добавь нужное Interaction Profile (например, HTC Vive, Oculus Touch).
+ • Включи Eye Gaze Interaction или Hand Tracking, если используется.
