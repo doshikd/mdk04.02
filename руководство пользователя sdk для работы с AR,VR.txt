@@ -1,0 +1,66 @@
+Руководство пользователя на программное обеспечение: OpenXR SDK
+
+1. Область применения
+
+Настоящее руководство пользователя предназначено для ознакомления с процессом установки, настройки и использования OpenXR SDK в операционной системе Ubuntu для работы с AR/VR-шлемами (Oculus, HTC Vive, HoloLens).
+
+2. Назначение
+
+OpenXR SDK предоставляет интерфейсы и компоненты для взаимодействия с различными AR/VR устройствами. Позволяет запускать и разрабатывать VR/AR-приложения в интеграции с игровыми движками (Unity, Unreal Engine) и языками C++ / C#.
+
+3. Технические требования
+
+3.1 Аппаратные требования
+ • Процессор: x86_64, поддержка AVX
+ • Графический ускоритель: NVIDIA RTX / AMD с поддержкой Vulkan/OpenGL
+ • ОЗУ: 8 ГБ и выше
+ • VR-шлем: Oculus Quest 2, HTC Vive, HoloLens 2 и др.
+
+3.2 Программные требования
+ • ОС: Ubuntu 22.04 LTS
+ • Драйверы GPU: NVIDIA proprietary >= 515 или Mesa >= 22
+ • Драйверы VR-шлема: SteamVR (для HTC), Oculus Runtime (через OpenXR), Windows Mixed Reality (через WSL/компаньон)
+ • Game Engine: Unity Hub 3.0+ или Unreal Engine 5
+ • Язык: C++ (через CMake) или C# (Unity)
+ • Защита: OpenVPN, UFW (для безопасной передачи)
+
+4. Установка
+
+4.1 Установка OpenXR SDK
+sudo apt update
+sudo apt install libopenxr-dev
+
+4.2 Установка SteamVR (для HTC Vive/Oculus через OpenXR)
+Установите Steam и SteamVR
+sudo apt install steam
+Через Steam установите SteamVR
+
+4.3 Проверка драйвера OpenXR
+xr-info
+Вывод должен содержать активный runtime (например, “SteamVR OpenXR”).
+
+5. Настройка
+
+5.1 Unity
+ 1. Установите Unity Hub → Unity Editor с XR Plugin Management.
+ 2. Включите XR Plugin Management → выберите OpenXR.
+ 3. Укажите профиль: HTC Vive / Oculus / HoloLens.
+
+5.2 Unreal Engine
+ 1. Включите плагин OpenXR.
+ 2. В настройках проекта выберите OpenXR как основной XR runtime.
+
+6. Работа с устройствами
+
+При подключении:
+ • HTC Vive → запустите SteamVR.
+ • Oculus Quest → включите режим разработчика в Oculus Developer Hub.
+ • HoloLens → настройка через Windows Holographic + Remote (через WSL2 или SSH-туннель).
+
+7. Безопасность и защита
+
+Включите брандмауэр:
+sudo ufw enable
+sudo ufw allow ssh
+
+Не допускайте автоматическое подключение незнакомых устройств.
