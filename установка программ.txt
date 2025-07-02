@@ -87,3 +87,49 @@ Edit → Project Settings → XR Plugin Management
  3. В OpenXR:
  • Добавь нужное Interaction Profile (например, HTC Vive, Oculus Touch).
  • Включи Eye Gaze Interaction или Hand Tracking, если используется.
+
+
+Сервера:
+Установка Ansible:
+sudo apt update
+sudo apt install ansible -y
+
+Проверка:
+ansible --version
+
+Установка мониторинга (Zabbix):
+Установка Zabbix Server и Web-интерфейса:
+sudo apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent mysql-server -y
+
+Установка виртуализации (KVM + Cockpit):
+sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager cockpit cockpit-machines -y
+sudo systemctl enable --now libvirtd
+sudo systemctl enable --now cockpit.socket
+
+После этого открой в браузере:
+http://localhost:9090
+(интерфейс управления виртуалками)
+
+Установка системы резервного копирования:
+BorgBackup (простой и надёжный вариант):
+sudo apt install borgbackup -y
+
+Безопасность сервера:
+sudo apt install ufw fail2ban openssh-server -y
+
+Включим брандмауэр:
+sudo ufw enable
+sudo ufw allow ssh
+Настройка SSH-ключей:
+
+ssh-keygen
+ssh-copy-id user@server_ip
+
+чтобы найти ip server: 
+ip a
+user — это имя пользователя на том сервере, а не на твоём текущем ПК. (ssh-copy-id ubuntu@192.168.1.10)
+
+Настройка шифрования и авторизации:
+Все команды управляются через SSH → по ключу, без паролей.
+Мониторинг (Zabbix, Grafana) настраивается на работу по HTTPS.
+В Cockpit и Zabbix можно настроить аутентификацию через пользователей Linux или LDAP.
